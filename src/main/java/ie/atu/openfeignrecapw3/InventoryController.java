@@ -2,21 +2,27 @@ package ie.atu.openfeignrecapw3;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.List;
 @RestController
 public class InventoryController {
-    private ProductService productService;
+    private final AcknowledgeService acknowledgeService;
+    private final RegistrationServiceClient registrationServiceClient;
     @Autowired
-    public InventoryController(ProductService productService) {
-        this.productService = productService;
+    public InventoryController(AcknowledgeService acknowledgeService, RegistrationServiceClient registrationServiceClient) {
+        this.acknowledgeService = acknowledgeService;
+        this.registrationServiceClient = registrationServiceClient;
     }
-    @GetMapping("/inventory")
-    public List<Inventory> getInventoryList()
+
+    @PostMapping("/confirm")
+    public String confirm(@RequestBody UserDetails userDetails)
     {
-        return ProductService.getAllInventory();
+        String confirm = registrationServiceClient.someDetails(userDetails);
+        String response = confirm + " " + acknowledgeService.ackMessage(userDetails);
+        return response;
     }
 }

@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleValidationException(MethodArgumentNotValidException ex){
-        return  "An Error occurred" + ex.getBindingResult().getFieldError().getDefaultMessage();
+        return  "An Error occurred " + ex.getBindingResult().getFieldError().getDefaultMessage();
     }
 
 }

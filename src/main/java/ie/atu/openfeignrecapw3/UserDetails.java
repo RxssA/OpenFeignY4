@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Inventory {
+public class UserDetails {
     private Long id;
     @NotBlank(message = "name cannot null")
     private String name;
